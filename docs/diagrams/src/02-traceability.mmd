@@ -1,0 +1,24 @@
+flowchart LR
+    RISK["<b>Risk R-004</b><br/>unauthorised access via weak<br/>authentication or stale accounts"]
+    LEG["<b>Requirement</b><br/>NIS2 Art. 21(2)(i) · LEG-01<br/>insurer condition · LEG-08"]
+    CTRL["<b>Control A.5.15</b><br/>Access control<br/>applicable · implemented"]
+    DOC["<b>POL-ACC</b><br/>ACC-1 … ACC-3 · ACC-7<br/>approved v1.3.0"]
+    STD["<b>STD-AUTH</b><br/>AUTH-8 · AUTH-9"]
+    EV["<b>Evidence</b><br/>access requests (queue ACCESS)<br/>quarterly attestations (ISMS-AR)"]
+    SOA["<b>Statement of Applicability</b><br/>row A.5.15 — generated"]
+    RISK --> CTRL
+    LEG --> CTRL
+    CTRL --> DOC
+    CTRL --> STD
+    DOC --> EV
+    CTRL --> SOA
+    DOC --> SOA
+
+    classDef r fill:#FEE2E2,stroke:#DC2626,color:#7F1D1D,rx:8,ry:8;
+    classDef c fill:#EEF2FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef d fill:#E0E7FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef e fill:#DCFCE7,stroke:#16A34A,color:#14532D,rx:8,ry:8;
+    class RISK,LEG r;
+    class CTRL c;
+    class DOC,STD d;
+    class EV,SOA e;

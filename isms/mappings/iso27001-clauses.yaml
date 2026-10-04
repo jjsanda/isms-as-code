@@ -1,0 +1,128 @@
+# ISO/IEC 27001:2022 main-body clauses 4-10 mapped to the documents and registers that satisfy
+# them. Where a clause is answered by a generated artefact rather than a document, the `notes`
+# say so. `isms generate` renders generated/coverage-iso27001-clauses.md from this file.
+name: iso27001-clauses
+title: ISO/IEC 27001:2022 clauses 4-10 — where each requirement is met
+source: ISO/IEC 27001:2022, clauses 4 to 10
+description: >-
+  The Annex A controls are only half of the standard; the management-system clauses are met by
+  procedures, registers and generated artefacts. This mapping is the auditor's index for the
+  Stage 1 documentation review.
+requirements:
+  - id: "4.1"
+    title: Understanding the organization and its context
+    description: External and internal issues relevant to the ISMS.
+    documents: [POL-ISMS]
+    notes: Issues are recorded in isms/context/organisation.yaml and rendered into generated/isms-scope-statement.md.
+  - id: "4.2"
+    title: Understanding the needs and expectations of interested parties
+    description: Interested parties, their requirements and which are addressed through the ISMS.
+    documents: [POL-ISMS]
+    notes: isms/context/interested-parties.yaml, rendered into the scope statement.
+  - id: "4.3"
+    title: Determining the scope of the ISMS
+    description: Boundaries and applicability, interfaces and dependencies.
+    documents: [POL-ISMS]
+    notes: generated/isms-scope-statement.md is the scope statement, generated from organisation.yaml.
+  - id: "4.4"
+    title: Information security management system
+    description: Establish, implement, maintain and continually improve the ISMS and its processes.
+    documents: [POL-ISMS, PROC-DOC]
+  - id: "5.1"
+    title: Leadership and commitment
+    description: Top management demonstrates leadership through policy, objectives, resources and review.
+    documents: [POL-ISMS, PROC-MR]
+    controls: [A.5.4]
+  - id: "5.2"
+    title: Policy
+    description: An information security policy that is approved, communicated and available.
+    documents: [POL-ISMS]
+    controls: [A.5.1]
+  - id: "5.3"
+    title: Organizational roles, responsibilities and authorities
+    description: Assigned and communicated responsibilities for the ISMS and for reporting on it.
+    documents: [POL-ORG]
+    controls: [A.5.2]
+    notes: isms/context/roles.yaml is the role register; CODEOWNERS is generated from document ownership.
+  - id: "6.1.1"
+    title: Actions to address risks and opportunities — general
+    description: Plan actions so the ISMS achieves its intended outcomes.
+    documents: [PROC-RISK]
+  - id: "6.1.2"
+    title: Information security risk assessment
+    description: Criteria, identification, analysis and evaluation of risks.
+    documents: [PROC-RISK]
+    notes: Criteria in isms/risk/risk-criteria.yaml; the register in isms/risk/risk-register.yaml.
+  - id: "6.1.3"
+    title: Information security risk treatment
+    description: Treatment options, necessary controls, comparison with Annex A and the Statement of Applicability.
+    documents: [PROC-RISK]
+    notes: generated/statement-of-applicability.md is produced from the control guides and the risk register.
+  - id: "6.2"
+    title: Information security objectives and planning to achieve them
+    description: Measurable objectives, communicated, monitored and updated.
+    documents: [POL-ISMS, PROC-MR]
+  - id: "6.3"
+    title: Planning of changes
+    description: Changes to the ISMS are carried out in a planned manner.
+    documents: [PROC-DOC, POL-SDLC]
+    controls: [A.8.32]
+  - id: "7.1"
+    title: Resources
+    description: Resources needed for the ISMS are determined and provided.
+    documents: [POL-ISMS, PROC-MR]
+  - id: "7.2"
+    title: Competence
+    description: Competence of people doing work that affects information security.
+    documents: [POL-HR]
+    controls: [A.6.3]
+  - id: "7.3"
+    title: Awareness
+    description: People are aware of the policy, their contribution and the implications of non-conformance.
+    documents: [POL-HR, POL-AUP]
+    controls: [A.6.3]
+  - id: "7.4"
+    title: Communication
+    description: What, when, with whom and how to communicate on information security.
+    documents: [POL-ORG, PROC-IR]
+    controls: [A.5.5, A.5.6]
+  - id: "7.5"
+    title: Documented information
+    description: Creation, updating and control of documented information.
+    documents: [PROC-DOC]
+    controls: [A.5.37]
+    notes: This repository is the control mechanism — front matter, CHANGELOGs, pull-request review and signed PDFs.
+  - id: "8.1"
+    title: Operational planning and control
+    description: Processes to meet requirements and implement the planned actions, including outsourced processes.
+    documents: [PROC-DOC, POL-SDLC, POL-SUP]
+  - id: "8.2"
+    title: Information security risk assessment (operation)
+    description: Risk assessments performed at planned intervals and on significant change.
+    documents: [PROC-RISK]
+  - id: "8.3"
+    title: Information security risk treatment (operation)
+    description: The risk treatment plan is implemented and results retained.
+    documents: [PROC-RISK]
+  - id: "9.1"
+    title: Monitoring, measurement, analysis and evaluation
+    description: What is monitored and measured, by whom, how and when.
+    documents: [PROC-MR, POL-LOG]
+    notes: Control metrics live in the `metrics` field of each control guide and are summarised in the SoA.
+  - id: "9.2"
+    title: Internal audit
+    description: An audit programme with independent auditors and reported results.
+    documents: [PROC-AUDIT]
+    controls: [A.5.35]
+  - id: "9.3"
+    title: Management review
+    description: Top management reviews the ISMS at planned intervals with defined inputs and outputs.
+    documents: [PROC-MR]
+  - id: "10.1"
+    title: Continual improvement
+    description: Continually improve the suitability, adequacy and effectiveness of the ISMS.
+    documents: [PROC-CAPA, PROC-MR]
+  - id: "10.2"
+    title: Nonconformity and corrective action
+    description: React to nonconformities, evaluate causes, act and retain evidence.
+    documents: [PROC-CAPA]

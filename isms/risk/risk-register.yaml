@@ -1,0 +1,271 @@
+# Information security risk register (clauses 6.1.2 and 8.2). Each risk names the Annex A controls
+# that modify it; the Statement of Applicability cites these risk ids as the justification for
+# including a control, which closes the trace risk -> control -> document -> evidence.
+risks:
+  - id: R-001
+    title: Firmware tampering on street-sited lockers
+    description: >-
+      Someone with physical access to a locker extracts, modifies or replaces the edge device's
+      firmware or storage to take over the device, harvest parcels or personal data, or pivot into
+      the backend through the device's credentials.
+    owner: head-of-platform
+    asset: Locker edge devices
+    threat: Physical tampering and malicious firmware modification of exposed edge devices
+    vulnerability: Physically accessible devices; older hardware generations without secure boot
+    inherent_likelihood: 4
+    inherent_impact: 5
+    treatment: modify
+    controls: [A.7.1, A.7.4, A.8.24, A.8.9, A.7.8]
+    residual_likelihood: 2
+    residual_impact: 4
+    status: in-treatment
+    review_date: 2027-02-01
+    interested_parties: [IP-01, IP-03]
+
+  - id: R-002
+    title: Delayed incident detection breaching NIS2 24h/72h deadlines
+    description: >-
+      A significant incident on the lockers or the backend is detected too late to meet the
+      Art. 23 early-warning and notification deadlines, prolonging attacker dwell time and
+      exposing the group to regulatory sanction.
+    owner: isms-manager
+    asset: Incident response capability
+    threat: Stealthy intrusion or service compromise that goes unnoticed
+    vulnerability: Incomplete detection coverage across the fleet; reporting clock not rehearsed everywhere
+    inherent_likelihood: 3
+    inherent_impact: 5
+    treatment: modify
+    controls: [A.5.24, A.5.25, A.5.26, A.6.8, A.8.15, A.8.16]
+    residual_likelihood: 2
+    residual_impact: 4
+    status: in-treatment
+    review_date: 2027-01-15
+    interested_parties: [IP-04]
+    legal: [LEG-01]
+
+  - id: R-003
+    title: Data loss or failure to restore the backend after an outage
+    description: >-
+      Backend databases are lost or cannot be restored after an outage, corruption, ransomware or
+      a region failure, losing parcel and customer data and keeping the service down beyond the
+      agreed recovery objectives.
+    owner: head-of-platform
+    asset: Backend databases
+    threat: Infrastructure failure, data corruption or ransomware affecting the backend
+    vulnerability: Backups not regularly restore-tested or not isolated from production credentials
+    inherent_likelihood: 3
+    inherent_impact: 5
+    treatment: modify
+    controls: [A.8.13, A.8.14, A.5.30, A.5.29]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: treated
+    review_date: 2027-01-01
+    interested_parties: [IP-01, IP-02, IP-10]
+    legal: [LEG-08]
+
+  - id: R-004
+    title: Unauthorised access via weak authentication or stale accounts
+    description: >-
+      An external or internal actor gains access to the backend or administrative interfaces
+      through weak or reused credentials, or through dormant, over-provisioned accounts that were
+      never revoked when people changed role or left.
+    owner: isms-manager
+    asset: Backend and administrative access
+    threat: Credential compromise, brute force or exploitation of dormant accounts
+    vulnerability: MFA not yet enforced on every remote path; access reviews still partly manual
+    inherent_likelihood: 4
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.5.15, A.5.16, A.5.17, A.5.18, A.8.2, A.8.3, A.8.5]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: in-treatment
+    review_date: 2026-12-20
+    interested_parties: [IP-10]
+    legal: [LEG-08]
+
+  - id: R-005
+    title: Credential theft via phishing
+    description: >-
+      Staff are targeted by phishing that harvests credentials or one-time codes, giving an
+      attacker a foothold in corporate or backend systems from which to escalate.
+    owner: hr-manager
+    asset: Staff credentials
+    threat: Phishing and social-engineering campaigns against employees and technicians
+    vulnerability: Human susceptibility; authentication paths not yet on phishing-resistant factors
+    inherent_likelihood: 4
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.6.3, A.8.5, A.8.23, A.6.8]
+    residual_likelihood: 3
+    residual_impact: 3
+    status: in-treatment
+    review_date: 2027-03-15
+    interested_parties: [IP-07]
+
+  - id: R-006
+    title: Supplier or cloud provider compromise
+    description: >-
+      A compromise at a carrier, the cloud provider, a field-service subcontractor or a hardware or
+      software supplier propagates into PaketPort's services or data through the access or the
+      components those parties provide.
+    owner: head-of-procurement
+    asset: ICT supply chain
+    threat: Supply-chain compromise or a breach at a third party with access or components
+    vulnerability: Dependence on external providers with uneven assurance and monitoring
+    inherent_likelihood: 3
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.5.19, A.5.20, A.5.21, A.5.22, A.5.23, A.8.30]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: treated
+    review_date: 2026-12-15
+    interested_parties: [IP-02, IP-08]
+    legal: [LEG-05, LEG-07]
+
+  - id: R-007
+    title: Exploitation of an unpatched vulnerability
+    description: >-
+      A known, unpatched vulnerability in the locker operating system, a backend service or a
+      third-party dependency is exploited before it is remediated across the dispersed fleet.
+    owner: security-engineer
+    asset: Edge OS and backend services
+    threat: Exploitation of known vulnerabilities ahead of remediation
+    vulnerability: Patch latency across a dispersed fleet and exposure to third-party dependencies
+    inherent_likelihood: 4
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.8.8, A.8.9, A.8.19, A.5.7]
+    residual_likelihood: 2
+    residual_impact: 4
+    status: treated
+    review_date: 2027-03-20
+    legal: [LEG-03]
+
+  - id: R-008
+    title: Insufficient logging hampers forensic investigation
+    description: >-
+      Insufficient or non-centralised logging prevents timely detection and hampers forensic
+      investigation and regulatory reporting after an incident, because records were never
+      captured or were lost with a tampered locker.
+    owner: head-of-platform
+    asset: Audit logs
+    threat: Attacker activity that cannot be reconstructed after the fact
+    vulnerability: Logs held locally on older lockers and lost on tamper; retention gaps
+    inherent_likelihood: 3
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.8.15, A.8.16, A.8.17, A.5.28]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: in-treatment
+    review_date: 2026-12-15
+    interested_parties: [IP-04]
+
+  - id: R-009
+    title: Personal-data breach via application vulnerability
+    description: >-
+      A vulnerability in the customer application or API is exploited to access or exfiltrate
+      customers' personal data, triggering GDPR and NIS2 breach obligations and reputational harm.
+    owner: dpo
+    asset: Customer personal data
+    threat: Exploitation of an application-layer flaw such as injection or broken access control
+    vulnerability: Coding defects and gaps in secure-development and testing controls
+    inherent_likelihood: 3
+    inherent_impact: 5
+    treatment: modify
+    controls: [A.8.25, A.8.26, A.8.28, A.8.29, A.8.8, A.8.24, A.8.11]
+    residual_likelihood: 2
+    residual_impact: 4
+    status: in-treatment
+    review_date: 2027-01-30
+    interested_parties: [IP-01, IP-05]
+    legal: [LEG-02]
+
+  - id: R-010
+    title: Insider misuse of privileged access
+    description: >-
+      A trusted administrator misuses privileged access to view, alter or exfiltrate data or to
+      disrupt the locker service, whether maliciously or through negligence.
+    owner: isms-manager
+    asset: Privileged accounts
+    threat: Malicious or negligent insider holding privileged access
+    vulnerability: Small administration team with limited separation of duties
+    inherent_likelihood: 2
+    inherent_impact: 5
+    treatment: retain
+    controls: [A.8.2, A.8.15, A.5.3, A.8.18]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: accepted
+    accepted_by: managing-director
+    acceptance_rationale: >-
+      Privileged access is minimised, individually assigned, MFA-protected, elevated just in time
+      and logged to a tamper-evident store with alerting. Given the small size of the trusted team
+      the residual risk is within appetite; it is re-confirmed at every quarterly access review.
+    review_date: 2027-06-30
+
+  - id: R-011
+    title: DDoS against the locker backend degrades availability
+    description: >-
+      A distributed denial-of-service attack against the customer-facing API degrades or removes
+      availability of the app and locker interactions, preventing deposits and collections.
+    owner: head-of-platform
+    asset: Customer-facing API
+    threat: Volumetric or application-layer DDoS against internet-facing endpoints
+    vulnerability: Public exposure of the API and finite backend capacity
+    inherent_likelihood: 3
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.8.20, A.8.21, A.8.6, A.5.30]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: treated
+    review_date: 2027-03-08
+    interested_parties: [IP-01, IP-02]
+
+  - id: R-012
+    title: Non-compliance with NIS2 registration and reporting duties
+    description: >-
+      The group fails to meet its NIS2 registration, governance or incident-reporting duties in one
+      of its jurisdictions, exposing the entities to sanction and the management body to liability.
+    owner: managing-director
+    asset: Regulatory compliance
+    threat: Regulatory enforcement following missed obligations or deadlines
+    vulnerability: Evolving national transpositions and dependence on timely internal escalation
+    inherent_likelihood: 2
+    inherent_impact: 4
+    treatment: modify
+    controls: [A.5.1, A.5.4, A.5.5, A.5.24, A.5.31]
+    residual_likelihood: 1
+    residual_impact: 4
+    status: treated
+    review_date: 2027-03-01
+    interested_parties: [IP-04, IP-06]
+    legal: [LEG-01]
+
+  - id: R-013
+    title: Loss of key Linux-platform knowledge (bus factor)
+    description: >-
+      Departure or extended unavailability of one or two key platform engineers would leave the
+      group unable to safely operate or change the locker fleet and backend, because critical
+      knowledge is concentrated in too few people.
+    owner: managing-director
+    asset: Platform engineering capability
+    threat: Departure or unavailability of key platform personnel
+    vulnerability: Concentration of critical Linux and platform knowledge in a small number of people
+    inherent_likelihood: 3
+    inherent_impact: 3
+    treatment: retain
+    controls: [A.8.9, A.5.9, A.5.37]
+    residual_likelihood: 2
+    residual_impact: 3
+    status: accepted
+    accepted_by: managing-director
+    acceptance_rationale: >-
+      Infrastructure and baselines are maintained as code with documented runbooks, and the Brno
+      team is being cross-trained on platform operations. The Managing Director retains the
+      residual risk while recruitment adds platform redundancy; the decision is reviewed annually.
+    review_date: 2027-05-30

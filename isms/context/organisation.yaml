@@ -1,0 +1,323 @@
+# Organisation profile and ISMS scope inputs (ISO/IEC 27001:2022 clauses 4.1, 4.3 and 4.4).
+# `isms generate` turns this file, interested-parties.yaml and legal-register.yaml into the ISMS
+# scope statement; documents reference entity ids in `applies_to`, and control guides may carry
+# per-entity applicability overrides keyed by the same ids.
+group_name: PaketPort Group
+parent_entity: ENT-AT
+description: >-
+  PaketPort designs, installs and operates street-sited parcel lockers and the cloud platform
+  behind them: a customer app, a parcel-routing and slot-allocation engine, carrier API
+  integrations and a fleet-management plane that delivers signed firmware over the air to the
+  Linux edge devices in the lockers. The group consists of the Austrian parent, which runs the
+  platform and the Austrian locker estate, a German sales and field-service subsidiary that
+  operates a growing German estate, and a Czech development centre. The ISMS was first
+  certified for the Austrian entity and is being rolled out to the German and Czech entities
+  under a single group certificate.
+sector: Parcel-locker logistics — postal and courier services (NIS2 essential entity in Austria)
+certification_target: ISO/IEC 27001:2022 — one group certificate covering all in-scope entities and sites
+isms_owner: isms-manager
+management_representative: managing-director
+
+external_issues:
+  - NIS2 (Directive (EU) 2022/2555) classifies the Austrian parent as an essential entity; the German
+    subsidiary is expected to qualify as an important entity under the national transposition.
+  - The Cyber Resilience Act brings product-security and vulnerability-handling obligations for the
+    locker hardware and firmware as products with digital elements.
+  - Carrier partners require contractual security assurances, API availability commitments and
+    incident notification, and increasingly ask for certification evidence before onboarding.
+  - Street-sited lockers are internet-exposed, physically accessible and continuously scanned.
+  - The platform depends on a single public cloud provider under a shared-responsibility model.
+  - Operations span three jurisdictions (AT, DE, CZ) with differing labour, privacy and NIS2
+    transposition rules.
+
+internal_issues:
+  - A small security function (one ISMS manager, one security engineer) serves the whole group.
+  - Rapid growth into Germany and Czechia means people, processes and tooling are still converging.
+  - Three generations of locker hardware with different firmware capabilities are in the field.
+  - Platform knowledge is concentrated in a few engineers (see risk R-013).
+  - Hybrid working is the norm for office roles; field technicians work entirely off-premises.
+
+entities:
+  - id: ENT-AT
+    legal_name: PaketPort Systems GmbH
+    short_name: PaketPort AT
+    country: AT
+    registered_office: Vienna, Austria
+    role: >-
+      Group parent. Operates the cloud platform, the Austrian locker estate, the security operations
+      centre and all group-wide corporate IT and identity services; employs the platform, security
+      and most development staff.
+    headcount: 120
+    ownership_percent: 100
+    nis2_status: essential
+    in_scope: true
+
+  - id: ENT-DE
+    legal_name: PaketPort Deutschland GmbH
+    short_name: PaketPort DE
+    country: DE
+    registered_office: Munich, Germany
+    role: >-
+      Wholly owned subsidiary. Sells, installs and services lockers in Germany and operates the
+      German locker estate on the group platform; no software development and no hosting of its own.
+    headcount: 35
+    ownership_percent: 100
+    nis2_status: important
+    in_scope: true
+
+  - id: ENT-CZ
+    legal_name: PaketPort Software s.r.o.
+    short_name: PaketPort CZ
+    country: CZ
+    registered_office: Brno, Czechia
+    role: >-
+      Wholly owned development centre. Develops locker firmware and backend services together with
+      the Vienna team and runs a hardware test lab; it operates no customer-facing service itself.
+    headcount: 28
+    ownership_percent: 100
+    nis2_status: not-covered
+    in_scope: true
+
+  - id: ENT-IT
+    legal_name: PaketPort Italia S.r.l.
+    short_name: PaketPort IT
+    country: IT
+    registered_office: Milan, Italy
+    role: >-
+      Minority-held reseller joint venture that markets lockers to Italian retailers. Operates its
+      own IT and has no access to group systems beyond the partner portal.
+    headcount: 6
+    ownership_percent: 40
+    nis2_status: not-covered
+    in_scope: false
+    justification: >-
+      PaketPort holds 40 % and exercises no management control over the joint venture's processes
+      or IT. The only interface is the partner portal, which is governed by the reseller agreement
+      and treated as a third-party relationship under POL-SUP. Bringing the entity into scope
+      would require contractual rights PaketPort does not have.
+
+sites:
+  - id: SITE-VIE-HQ
+    name: Vienna head office and security operations centre
+    entity: ENT-AT
+    city: Vienna
+    country: AT
+    kind: office
+    functions:
+      - Group management
+      - ISMS management
+      - Security operations centre
+      - Platform operations
+      - Development
+      - Corporate IT
+    in_scope: true
+
+  - id: SITE-VIE-DEPOT
+    name: Vienna logistics and locker-provisioning depot
+    entity: ENT-AT
+    city: Vienna
+    country: AT
+    kind: depot
+    functions: [Locker staging and provisioning, Spare-parts storage, Returns and secure disposal]
+    in_scope: true
+
+  - id: SITE-AT-ESTATE
+    name: Austrian locker estate (street and retail sites)
+    entity: ENT-AT
+    city: Austria-wide
+    country: AT
+    kind: field-estate
+    functions: [Parcel deposit and collection, Edge devices with local transaction buffering]
+    in_scope: true
+
+  - id: SITE-EU-CLOUD
+    name: EU public-cloud regions (primary and secondary)
+    entity: ENT-AT
+    city: EU regions
+    country: AT
+    kind: cloud-region
+    functions:
+      - Cloud backend and data stores
+      - Fleet management and OTA signing
+      - CI/CD and source repositories
+      - Central logging
+      - Corporate identity and SaaS
+    in_scope: true
+
+  - id: SITE-MUC-OFFICE
+    name: Munich sales and field-service office
+    entity: ENT-DE
+    city: Munich
+    country: DE
+    kind: office
+    functions: [Sales, Field-service dispatch, Local spare-parts store]
+    in_scope: true
+
+  - id: SITE-DE-ESTATE
+    name: German locker estate (pilot regions)
+    entity: ENT-DE
+    city: Germany-wide
+    country: DE
+    kind: field-estate
+    functions: [Parcel deposit and collection, Edge devices managed from the group platform]
+    in_scope: true
+
+  - id: SITE-BRQ-DEV
+    name: Brno development centre and hardware test lab
+    entity: ENT-CZ
+    city: Brno
+    country: CZ
+    kind: office
+    functions: [Firmware and backend development, Hardware test lab, Pre-production locker units]
+    in_scope: true
+
+  - id: SITE-MIL-OFFICE
+    name: Milan reseller office
+    entity: ENT-IT
+    city: Milan
+    country: IT
+    kind: office
+    functions: [Reseller sales]
+    in_scope: false
+    justification: >-
+      Office of the out-of-scope joint venture PaketPort Italia S.r.l.; no group systems or data
+      are processed there beyond partner-portal access.
+
+services:
+  - id: SVC-01
+    name: Parcel deposit and collection via street-sited lockers
+    description: >-
+      The core service for consumers and carriers: lockers accept and hand over parcels, buffer
+      transactions locally and reconcile with the backend.
+    entities: [ENT-AT, ENT-DE]
+  - id: SVC-02
+    name: Customer mobile and web application
+    description: >-
+      Consumer-facing app for notifications, collection codes, payments via the payment service
+      provider and parcel history.
+    entities: [ENT-AT]
+  - id: SVC-03
+    name: Parcel-routing and slot-allocation engine
+    description: >-
+      Backend engine that assigns parcels to lockers and compartments and coordinates carrier
+      handover windows.
+    entities: [ENT-AT]
+  - id: SVC-04
+    name: Carrier API integrations
+    description: >-
+      Authenticated APIs for labels, tracking events and handover confirmations exchanged with
+      carrier partners.
+    entities: [ENT-AT, ENT-DE]
+  - id: SVC-05
+    name: Locker fleet management and signed over-the-air firmware delivery
+    description: >-
+      Device inventory, health monitoring, configuration and cryptographically signed OTA updates
+      for the Linux edge devices.
+    entities: [ENT-AT, ENT-CZ]
+  - id: SVC-06
+    name: Locker installation and field service
+    description: >-
+      Site survey, installation, maintenance and decommissioning of lockers by employed technicians
+      and, in Germany, vetted subcontractors.
+    entities: [ENT-AT, ENT-DE]
+  - id: SVC-07
+    name: Firmware and backend software development
+    description: >-
+      Development, testing and release of locker firmware and backend services across Vienna and Brno.
+    entities: [ENT-AT, ENT-CZ]
+  - id: SVC-08
+    name: Corporate IT and identity services
+    description: >-
+      Group-wide identity provider, endpoint management, email and collaboration tooling provided by
+      the parent to all in-scope entities.
+    entities: [ENT-AT, ENT-DE, ENT-CZ]
+
+information_systems:
+  - name: Locker edge fleet (Linux devices)
+    description: Street-sited edge devices running the locker firmware with local transaction buffers.
+    owner: head-of-platform
+    hosted_at: [SITE-AT-ESTATE, SITE-DE-ESTATE]
+    classification: confidential
+  - name: Cloud backend (customer app, routing engine, carrier APIs)
+    description: Production services and databases holding customer personal data and parcel events.
+    owner: head-of-platform
+    hosted_at: [SITE-EU-CLOUD]
+    classification: confidential
+  - name: Fleet management and OTA signing service
+    description: Device management plane and the firmware-signing keys; the most sensitive system in scope.
+    owner: head-of-platform
+    hosted_at: [SITE-EU-CLOUD]
+    classification: restricted
+  - name: Source repositories and CI/CD
+    description: Firmware and backend source code, build pipelines and release artefacts.
+    owner: software-engineering-lead
+    hosted_at: [SITE-EU-CLOUD]
+    classification: confidential
+  - name: Corporate identity and endpoint management
+    description: Group identity provider, MFA, device management and the office network.
+    owner: it-operations-lead
+    hosted_at: [SITE-EU-CLOUD, SITE-VIE-HQ]
+    classification: confidential
+  - name: Central logging and monitoring platform
+    description: Tamper-evident log store, alerting and dashboards for the fleet and the backend.
+    owner: head-of-platform
+    hosted_at: [SITE-EU-CLOUD]
+    classification: confidential
+  - name: HR and payroll system (SaaS)
+    description: Employee master data and payroll for all entities, run as a software-as-a-service.
+    owner: hr-manager
+    hosted_at: [SITE-EU-CLOUD]
+    classification: restricted
+  - name: Brno hardware test lab
+    description: Pre-production lockers and test harnesses; no production or customer data.
+    owner: software-engineering-lead
+    hosted_at: [SITE-BRQ-DEV]
+    classification: internal
+
+interfaces:
+  - party: Carrier partners
+    direction: bidirectional
+    description: >-
+      Label, tracking and handover-event exchange over authenticated APIs; carriers also receive
+      incident notifications under their contracts.
+    governed_by: [LEG-05, POL-SUP, POL-NET]
+  - party: Public cloud provider
+    direction: bidirectional
+    description: >-
+      Hosting of the backend, data stores and tooling. The provider's physical infrastructure is
+      outside the scope and covered by its own certifications under the shared-responsibility model.
+    governed_by: [LEG-07, POL-SUP]
+  - party: Locker hardware manufacturer
+    direction: inbound
+    description: >-
+      Supplies enclosures, controllers and spare parts; firmware components are integrated and signed
+      by PaketPort.
+    governed_by: [POL-SUP, POL-SDLC]
+  - party: Payment service provider
+    direction: outbound
+    description: >-
+      Hosted payment pages and tokenised payments for the customer app; card data never touches
+      PaketPort systems.
+    governed_by: [POL-SUP]
+  - party: Retail and municipal site hosts
+    direction: inbound
+    description: >-
+      Provide locker sites, power and sometimes network uplinks; site staff have no access to the
+      locker enclosure or systems.
+    governed_by: [POL-PHY]
+  - party: NIS2 competent authorities and CSIRTs
+    direction: outbound
+    description: >-
+      Registration, incident early warnings, notifications and final reports under Art. 23, and
+      responses to supervisory requests.
+    governed_by: [PROC-IR, LEG-01]
+  - party: PaketPort Italia S.r.l. (reseller joint venture)
+    direction: inbound
+    description: >-
+      Out-of-scope reseller with partner-portal access only; treated as a supplier-type relationship.
+    governed_by: [POL-SUP]
+  - party: Field-service subcontractors (Germany)
+    direction: inbound
+    description: >-
+      Vetted subcontractors with time-limited access to maintenance tooling for the German estate.
+    governed_by: [POL-SUP, PROC-JML]

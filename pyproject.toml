@@ -1,0 +1,176 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "isms-as-code"
+version = "1.0.0"
+description = "ISMS-as-code: an ISO/IEC 27001:2022 policy and control repository — Markdown documents with front-matter metadata, pull-request review, a generated Statement of Applicability and ISMS scope statement, and digitally signed PDFs built by CI."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Josef Šanda", email = "pepek.svanda@gmail.com" }]
+keywords = [
+    "isms",
+    "iso27001",
+    "iso-27001-2022",
+    "annex-a",
+    "statement-of-applicability",
+    "policy-as-code",
+    "compliance-as-code",
+    "nis2",
+    "grc",
+    "document-control",
+    "information-security",
+    "pades",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security",
+    "Topic :: Office/Business",
+    "Topic :: Documentation",
+    "Typing :: Typed",
+]
+
+# The core stack (validate + generate) is deliberately light and runs fully offline. Rendering
+# and signing PDFs need WeasyPrint (native pango/harfbuzz) and pyHanko, which live behind the
+# `pdf` extra so that the validator and the generators install anywhere in seconds.
+dependencies = [
+    "pydantic>=2.8",
+    "pyyaml>=6.0.1",
+    "python-frontmatter>=1.1",
+    "jinja2>=3.1",
+    "markdown>=3.6",
+    "typer>=0.15",
+    "typing-extensions>=4.12",
+]
+
+[project.optional-dependencies]
+# HTML/CSS -> PDF rendering and PAdES signing/verification of the rendered documents.
+pdf = ["weasyprint>=62", "pyhanko>=0.25", "cryptography>=42"]
+
+[project.scripts]
+isms = "isms_as_code.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jjsanda/isms-as-code"
+Repository = "https://github.com/jjsanda/isms-as-code"
+Issues = "https://github.com/jjsanda/isms-as-code/issues"
+
+# uv dependency group (PEP 735) for dev/test tooling, not shipped with the package.
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "black>=24.8",
+    "mypy>=1.11",
+    "pre-commit>=3.8",
+    "pip-audit>=2.7",
+    "yamllint>=1.35",
+    "types-PyYAML",
+    "types-Markdown",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/isms_as_code"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/isms_as_code", "isms", "README.md", "LICENSE", "LICENSE-docs", "NOTICE"]
+
+# --------------------------------------------------------------------------------------
+# Tooling configuration
+# --------------------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",    # pycodestyle
+    "F",         # pyflakes
+    "I",         # isort
+    "N",         # pep8-naming
+    "UP",        # pyupgrade
+    "B",         # flake8-bugbear
+    "C4",        # comprehensions
+    "SIM",       # simplify
+    "TID",       # tidy-imports
+    "PTH",       # use-pathlib
+    "RUF",       # ruff-specific
+]
+ignore = [
+    "E501",    # line length handled by black
+    "B008",    # typer declares options as callables in argument defaults
+    "RUF022",  # keep __all__ grouped by category (curated) rather than alphabetised
+    "RUF001",  # generated documents deliberately use typographic characters (×, –, —)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["N802", "N803", "S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["isms_as_code"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+explicit_package_bases = true
+namespace_packages = true
+files = ["src", "tests"]
+
+# Third-party libraries that ship no (or incomplete) type information.
+[[tool.mypy.overrides]]
+module = [
+    "weasyprint.*",
+    "frontmatter.*",
+    "pyhanko.*",
+    "pyhanko_certvalidator.*",
+    "asn1crypto.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "unit: fast, isolated unit tests on synthetic documents (no I/O beyond tmp_path)",
+    "content: schema, cross-reference and completeness checks over the real corpus under isms/",
+    "generate: generator output and byte-determinism tests",
+    "render: HTML/PDF rendering tests (need the pdf extra)",
+    "signing: PAdES signing and verification round-trips (need the pdf extra)",
+    "cli: end-to-end command-line tests via typer's CliRunner",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["isms_as_code"]
+omit = ["*/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+    "if __name__ == .__main__.:",
+]

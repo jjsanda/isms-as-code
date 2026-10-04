@@ -1,0 +1,27 @@
+name: Document review
+description: Record the periodic review of a document or control assessment (PROC-DOC stage 5)
+title: "Review: <document or control id>"
+labels: [review-due]
+body:
+  - type: input
+    id: item
+    attributes:
+      label: Document or control id
+      placeholder: POL-HR or A.6.3
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - No change required (PATCH version, CHANGELOG "Periodic review — no changes required")
+        - Changes required (pull request follows)
+        - Control guide updated (last_assessed, evidence, metrics)
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Review notes
+      description: What was checked, who was consulted, what changed

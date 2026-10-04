@@ -1,0 +1,37 @@
+name: Control exception request
+description: Request a time-limited exception to a policy statement or standard requirement
+title: "[Exception] <document id> <statement id>: <system or situation>"
+labels: [exception]
+body:
+  - type: input
+    id: statement
+    attributes:
+      label: Statement or requirement
+      placeholder: POL-ACC ACC-8
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why the requirement cannot be met
+    validations:
+      required: true
+  - type: textarea
+    id: compensating
+    attributes:
+      label: Compensating controls
+      description: What limits the risk while the exception is in force
+    validations:
+      required: true
+  - type: input
+    id: until
+    attributes:
+      label: Requested end date (at most twelve months)
+      placeholder: 2027-06-30
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk assessment
+      description: Affected risks (R-nnn), entities and systems; residual risk and who accepts it per PROC-RISK

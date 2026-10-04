@@ -1,0 +1,13 @@
+{
+  // Markdown lint rules for the ISMS documents, docs and the README. Line length is handled by
+  // prose reflow; inline HTML is allowed for centered images and wide tables; generated tables
+  // and policy statements use ordered lists with explicit numbering.
+  "default": true,
+  "MD013": false, // line length
+  "MD033": false, // inline HTML (centered <img>, <p align>, tables)
+  "MD041": false, // first line need not be a top-level heading (front matter / badges lead)
+  "MD024": { "siblings_only": true }, // duplicate headings allowed across sections
+  "MD029": false, // ordered-list numbering style
+  "MD025": { "front_matter_title": "" }, // the front-matter `title:` is metadata, not a heading
+  "MD026": { "punctuation": ",;:!?" } // legal names such as "s.r.o." legitimately end with a full stop
+}

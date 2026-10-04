@@ -1,0 +1,14 @@
+stateDiagram-v2
+    [*] --> draft: isms new · 0.1.0
+    draft --> in_review: pull request opened
+    in_review --> draft: changes requested
+    in_review --> approved: approver review + merge · 1.0.0
+    approved --> approved: new version via PR<br/>MAJOR · MINOR · PATCH + CHANGELOG
+    approved --> retired: superseded_by set · RETIRED watermark
+    retired --> [*]
+
+    state approved {
+        [*] --> effective
+        effective --> review_due: next_review − 60 days → issue
+        review_due --> effective: periodic review · PATCH or change
+    }

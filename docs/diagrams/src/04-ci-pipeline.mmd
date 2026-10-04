@@ -1,0 +1,25 @@
+flowchart LR
+    PR["Pull request<br/>or push to main"]
+    subgraph CI["ci.yml"]
+        L["lint<br/>ruff · black"]
+        T["type<br/>mypy --strict"]
+        TE["test<br/>pytest · 90 % gate"]
+        C["content<br/>isms validate<br/>isms generate --check<br/>isms changelog-check<br/>yamllint · markdownlint"]
+        B["build<br/>isms build → render · sign · verify<br/>artifact: dist/"]
+        S["security<br/>pip-audit"]
+    end
+    TAG["tag v*"]
+    RELW["release.yml<br/>build with the CI key<br/>provenance attestation<br/>GitHub Release"]
+    CRON["Monday 06:00"]
+    REV["review-reminders.yml<br/>isms review-due → issues"]
+    PR --> L & T & TE & C & S
+    C --> B
+    TAG --> RELW
+    CRON --> REV
+
+    classDef job fill:#EEF2FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef trig fill:#F8FAFC,stroke:#94A3B8,color:#475569,rx:8,ry:8;
+    classDef out fill:#DCFCE7,stroke:#16A34A,color:#14532D,rx:8,ry:8;
+    class L,T,TE,C,S job;
+    class B,RELW,REV out;
+    class PR,TAG,CRON trig;

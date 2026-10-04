@@ -1,0 +1,17 @@
+flowchart TB
+    GRP["<b>PaketPort Group</b><br/>one ISMS · one group certificate"]
+    AT["<b>ENT-AT · PaketPort Systems GmbH</b><br/>Vienna head office + SOC · Vienna depot<br/>Austrian locker estate · EU cloud regions<br/>NIS2 essential entity"]
+    DE["<b>ENT-DE · PaketPort Deutschland GmbH</b><br/>Munich office · German locker estate<br/>field service + subcontractors<br/>NIS2 important entity"]
+    CZ["<b>ENT-CZ · PaketPort Software s.r.o.</b><br/>Brno development centre · test lab"]
+    IT["<b>ENT-IT · PaketPort Italia S.r.l.</b><br/>40 % reseller joint venture<br/><i>out of scope — partner portal only</i>"]
+    GRP --> AT
+    GRP --> DE
+    GRP --> CZ
+    GRP -. reseller agreement .-> IT
+
+    classDef inscope fill:#EEF2FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef out fill:#F8FAFC,stroke:#94A3B8,color:#475569,stroke-dasharray: 5 5,rx:8,ry:8;
+    classDef grp fill:#E0E7FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    class GRP grp;
+    class AT,DE,CZ inscope;
+    class IT out;

@@ -1,0 +1,23 @@
+flowchart LR
+    subgraph SRC["Sources (reviewed in pull requests)"]
+        D["<b>Documents</b><br/>Markdown + YAML front matter<br/>policies · standards · procedures<br/>+ CHANGELOG.md each"]
+        G["<b>Control guides</b><br/>one per Annex A control<br/>applicability · status · evidence"]
+        R["<b>Registers</b><br/>organisation · roles · risks<br/>legal · interested parties · mappings"]
+    end
+    V["<b>isms validate</b><br/>schema · cross-references<br/>CHANGELOG ⇄ version · structure"]
+    GEN["<b>isms generate</b><br/>Statement of Applicability<br/>scope statement · registers<br/>coverage · CODEOWNERS"]
+    REN["<b>isms render</b><br/>HTML → PDF<br/>cover · revision history · watermark"]
+    SIG["<b>isms sign</b><br/>PAdES signature<br/>SHA-256 manifest"]
+    REL["<b>Release</b><br/>signed PDFs · manifest<br/>trust anchor · provenance"]
+    D --> V
+    G --> V
+    R --> V
+    V --> GEN --> REN --> SIG --> REL
+    GEN -. "committed, drift-checked" .-> SRC
+
+    classDef src fill:#EEF2FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef step fill:#E0E7FF,stroke:#4F46E5,color:#1E1B4B,rx:8,ry:8;
+    classDef out fill:#DCFCE7,stroke:#16A34A,color:#14532D,rx:8,ry:8;
+    class D,G,R src;
+    class V,GEN,REN,SIG step;
+    class REL out;

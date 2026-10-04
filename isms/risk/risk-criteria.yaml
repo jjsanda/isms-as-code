@@ -1,0 +1,72 @@
+# Risk assessment and acceptance criteria (ISO/IEC 27001:2022 clause 6.1.2 a). PROC-RISK describes
+# how they are applied; the validator enforces them (a retained risk must sit in a band that allows
+# retention, and must be accepted by the role named for that band).
+method: >-
+  Risks are identified per asset group as threat/vulnerability pairs and scored as likelihood times
+  impact on two five-point scales (1-25). The inherent score assumes no controls beyond what is
+  legally unavoidable; the residual score is re-assessed after the planned treatment. Scores fall
+  into four bands that determine the response and who may retain residual risk. Risks are reviewed
+  at least annually, after significant incidents and whenever the scope changes.
+
+likelihood:
+  - level: 1
+    label: Rare
+    description: Not expected to occur; less than once in ten years in comparable organisations.
+  - level: 2
+    label: Unlikely
+    description: Could occur once in three to ten years; no known attempts against PaketPort so far.
+  - level: 3
+    label: Possible
+    description: Expected once in one to three years; attempts or near misses have been observed.
+  - level: 4
+    label: Likely
+    description: Expected about once a year; the threat is active against the sector or the platform.
+  - level: 5
+    label: Almost certain
+    description: Expected several times a year; attempts are routinely observed in logs or reports.
+
+impact:
+  - level: 1
+    label: Negligible
+    description: Under 10 kEUR; no customer impact; no personal data involved; handled within the team.
+  - level: 2
+    label: Minor
+    description: 10-50 kEUR; a single site or a few lockers disrupted for under four hours; no personal data exposed.
+  - level: 3
+    label: Moderate
+    description: 50-250 kEUR; service degraded for up to a day; limited personal data affected; may be reportable.
+  - level: 4
+    label: Major
+    description: 250 kEUR-1 MEUR; outage beyond a day or a significant personal-data breach; regulatory action likely.
+  - level: 5
+    label: Severe
+    description: Over 1 MEUR; multi-day outage, large-scale breach, sanctions, safety impact or loss of certification.
+
+bands:
+  - name: low
+    min_score: 1
+    max_score: 4
+    response: Monitor; treat opportunistically. May be retained by the ISMS manager and reviewed annually.
+    acceptance: isms-manager
+  - name: medium
+    min_score: 5
+    max_score: 9
+    response: Treat within twelve months, or retain by decision of the Managing Director with a documented rationale.
+    acceptance: managing-director
+  - name: high
+    min_score: 10
+    max_score: 15
+    response: >-
+      Treat within three months with an owner and a plan; retention only by the Managing Director and
+      only while the plan runs.
+    acceptance: managing-director
+  - name: critical
+    min_score: 16
+    max_score: 25
+    response: Treat immediately and escalate to the management review. Never retained.
+
+treatment_options:
+  modify: Reduce likelihood or impact by implementing or strengthening Annex A controls (named in `controls`).
+  retain: Accept the residual risk within appetite; requires the acceptance authority of the band and a rationale.
+  avoid: Stop or change the activity, system or relationship that gives rise to the risk.
+  share: Transfer part of the risk to a third party (insurance, contractual allocation) while keeping accountability.

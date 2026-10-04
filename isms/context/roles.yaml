@@ -1,0 +1,135 @@
+# Roles are the unit of ownership in this ISMS. Documents name a role key, never a person, so a
+# change of holder is a one-line edit here and touches no controlled document (A.5.2). The `github`
+# handle is what `isms generate` writes into .github/CODEOWNERS for review routing; in this
+# portfolio repository every role resolves to the maintainer.
+roles:
+  - key: managing-director
+    title: Managing Director
+    description: >-
+      Top management of the PaketPort group. Approves the information security policy, the risk
+      criteria and the retention of medium and high residual risks, chairs the management review
+      and is accountable for NIS2 governance duties.
+    holder: Dana Weber
+    email: dana.weber@paketport.example
+    github: "@jjsanda"
+    deputy: isms-manager
+
+  - key: isms-manager
+    title: Information Security Officer / ISMS Manager
+    description: >-
+      Operates the ISMS day to day: maintains the document set, the risk register and the Statement
+      of Applicability, coordinates audits and incident reporting to authorities, and reports the
+      security posture to top management.
+    holder: Alex Rossi
+    email: alex.rossi@paketport.example
+    github: "@jjsanda"
+    deputy: security-engineer
+
+  - key: security-engineer
+    title: Security Engineer
+    description: >-
+      Owns vulnerability and configuration management, authentication standards and the technical
+      security baselines of the locker fleet and the cloud backend.
+    holder: Tomas Horak
+    email: tomas.horak@paketport.example
+    github: "@jjsanda"
+    deputy: head-of-platform
+
+  - key: head-of-platform
+    title: Head of Platform & SRE
+    description: >-
+      Runs the cloud backend, the locker fleet-management plane, logging and monitoring, backups
+      and ICT continuity. Owns the platform-facing policies and most technological controls.
+    holder: Milan Novak
+    email: milan.novak@paketport.example
+    github: "@jjsanda"
+    deputy: security-engineer
+
+  - key: it-operations-lead
+    title: IT Operations Lead
+    description: >-
+      Runs corporate IT: identity and endpoint management, joiner-mover-leaver provisioning,
+      remote-working tooling and the acceptable-use rules for staff devices.
+    holder: Sara Berger
+    email: sara.berger@paketport.example
+    github: "@jjsanda"
+    deputy: head-of-platform
+
+  - key: software-engineering-lead
+    title: Software Engineering Lead
+    description: >-
+      Leads firmware and backend development in Vienna and Brno. Owns the secure development
+      life cycle, source-code access and change management for software.
+    holder: Nina Blaha
+    email: nina.blaha@paketport.example
+    github: "@jjsanda"
+    deputy: head-of-platform
+
+  - key: head-of-procurement
+    title: Head of Procurement
+    description: >-
+      Owns supplier relationships, contractual security clauses, supplier reviews and the cloud
+      and carrier agreements.
+    holder: Jan Fischer
+    email: jan.fischer@paketport.example
+    github: "@jjsanda"
+    deputy: isms-manager
+
+  - key: hr-manager
+    title: HR Manager
+    description: >-
+      Owns the employment life cycle controls: screening, terms of employment, awareness and
+      training, the disciplinary process and post-employment responsibilities.
+    holder: Petra Klein
+    email: petra.klein@paketport.example
+    github: "@jjsanda"
+    deputy: managing-director
+
+  - key: facilities-lead
+    title: Facilities & Physical Security Lead
+    description: >-
+      Owns the physical security of offices, the provisioning depot and the locker enclosures:
+      perimeters, entry control, monitoring, utilities and equipment life cycle.
+    holder: Karl Mayer
+    email: karl.mayer@paketport.example
+    github: "@jjsanda"
+    deputy: it-operations-lead
+
+  - key: dpo
+    title: Data Protection Officer
+    description: >-
+      Independent adviser on personal-data protection; owns the legal and privacy compliance
+      policy, the records of processing and breach-notification decisions under the GDPR.
+    holder: Lena Vogel
+    email: lena.vogel@paketport.example
+    github: "@jjsanda"
+    deputy: isms-manager
+
+  - key: internal-audit-lead
+    title: Internal Audit Lead
+    description: >-
+      Plans and performs the internal ISMS audit programme independently of the functions
+      audited; reports findings to top management and tracks corrective actions to closure.
+    holder: Sophie Brandt
+    email: sophie.brandt@paketport.example
+    github: "@jjsanda"
+
+  - key: country-manager-de
+    title: Country Manager Germany
+    description: >-
+      Local management of PaketPort Deutschland GmbH; accountable for applying the group ISMS at
+      the Munich office and the German locker estate and for local regulatory contacts.
+    holder: Felix Hartmann
+    email: felix.hartmann@paketport.example
+    github: "@jjsanda"
+    deputy: isms-manager
+
+  - key: site-lead-cz
+    title: Site Lead Brno
+    description: >-
+      Local management of PaketPort Software s.r.o.; accountable for applying the group ISMS at
+      the Brno development centre and test lab.
+    holder: Jana Dvorakova
+    email: jana.dvorakova@paketport.example
+    github: "@jjsanda"
+    deputy: software-engineering-lead

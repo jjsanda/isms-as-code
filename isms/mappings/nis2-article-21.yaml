@@ -1,0 +1,109 @@
+# NIS2 — Directive (EU) 2022/2555. Maps the Art. 21(2) risk-management measures, the Art. 20
+# governance duties and the Art. 23 reporting obligations onto Annex A controls and the documents
+# that implement them. `isms generate` renders generated/coverage-nis2-article-21.md from this file.
+name: nis2-article-21
+title: NIS2 Article 21(2) risk-management measures, Article 20 governance and Article 23 reporting
+source: Directive (EU) 2022/2555, Articles 20, 21(2) and 23
+description: >-
+  Each NIS2 measure area is mapped to the Annex A controls that realise it at PaketPort and to the
+  policies and procedures that document it. Coverage is reported per area with the implementation
+  status of the mapped controls, which is what the competent authority and the management body
+  ask for.
+requirements:
+  - id: 21(2)(a)
+    title: Policies on risk analysis and information system security
+    description: >-
+      A documented risk-management process and an approved, reviewed information security policy
+      set covering the locker edge, the cloud backend and corporate IT.
+    controls: [A.5.1, A.5.2, A.5.4, A.5.31, A.5.36]
+    documents: [POL-ISMS, POL-ORG, PROC-RISK]
+
+  - id: 21(2)(b)
+    title: Incident handling
+    description: >-
+      Preparation, detection, assessment, response and learning for incidents affecting the lockers
+      and the backend, wired to the Art. 23 reporting timeline.
+    controls: [A.5.24, A.5.25, A.5.26, A.5.27, A.5.28, A.6.8, A.8.16]
+    documents: [POL-IR, PROC-IR, POL-LOG]
+
+  - id: 21(2)(c)
+    title: Business continuity, backup management, disaster recovery and crisis management
+    description: >-
+      Tested ICT continuity with cross-region failover, restore-tested encrypted backups and locker
+      behaviour that keeps handover working during backend disruption.
+    controls: [A.5.29, A.5.30, A.8.13, A.8.14]
+    documents: [POL-BC]
+
+  - id: 21(2)(d)
+    title: Supply chain security
+    description: >-
+      Security in relationships with carriers, the cloud provider, hardware and software suppliers
+      and field-service subcontractors, including agreements, supply-chain and cloud controls.
+    controls: [A.5.19, A.5.20, A.5.21, A.5.22, A.5.23, A.8.30]
+    documents: [POL-SUP]
+
+  - id: 21(2)(e)
+    title: >-
+      Security in network and information systems acquisition, development and maintenance,
+      including vulnerability handling and disclosure
+    description: >-
+      Secure development of firmware and backend, configuration baselines, change control and the
+      vulnerability-management process with remediation deadlines and coordinated disclosure.
+    controls: [A.8.8, A.8.9, A.8.25, A.8.26, A.8.27, A.8.28, A.8.29, A.8.31, A.8.32]
+    documents: [POL-SDLC, POL-VULN]
+
+  - id: 21(2)(f)
+    title: Policies and procedures to assess the effectiveness of cybersecurity risk-management measures
+    description: >-
+      Internal audits, management review, metrics and corrective actions that measure whether the
+      measures work and drive improvement.
+    controls: [A.5.35, A.5.36]
+    documents: [PROC-AUDIT, PROC-MR, PROC-CAPA]
+
+  - id: 21(2)(g)
+    title: Basic cyber hygiene practices and cybersecurity training
+    description: >-
+      Role-based awareness and training for all staff and technicians, acceptable-use rules,
+      malware protection, software-installation controls and curated threat intelligence.
+    controls: [A.6.3, A.5.7, A.5.10, A.8.7, A.8.19]
+    documents: [POL-HR, POL-AUP]
+
+  - id: 21(2)(h)
+    title: Policies and procedures regarding the use of cryptography and, where appropriate, encryption
+    description: >-
+      Cryptography policy and algorithm standard covering data in transit and at rest, signed
+      firmware and key management.
+    controls: [A.8.24]
+    documents: [POL-CRYP, STD-CRYPTO]
+
+  - id: 21(2)(i)
+    title: Human resources security, access control policies and asset management
+    description: >-
+      Employment life-cycle controls, least-privilege access with joiner-mover-leaver handling and
+      reviews, and an asset inventory with named owners.
+    controls: [A.5.9, A.5.15, A.5.16, A.5.18, A.6.1, A.6.2, A.6.5, A.8.2]
+    documents: [POL-HR, POL-ACC, POL-CLS, PROC-JML]
+
+  - id: 21(2)(j)
+    title: Multi-factor or continuous authentication, secured communications and secured emergency communication
+    description: >-
+      MFA on remote, staff and administrative access; segmented, filtered and monitored networks;
+      mutually authenticated TLS between lockers and backend; emergency contact paths.
+    controls: [A.8.5, A.5.14, A.8.20, A.8.21, A.8.22]
+    documents: [STD-AUTH, POL-ACC, POL-NET]
+
+  - id: "20"
+    title: Governance — management-body approval, oversight and training
+    description: >-
+      The management body approves the risk-management measures, oversees their implementation,
+      is accountable for infringements and follows regular training.
+    controls: [A.5.1, A.5.4, A.6.3]
+    documents: [POL-ISMS, PROC-MR]
+
+  - id: "23"
+    title: Reporting obligations — early warning, incident notification and final report
+    description: >-
+      Early warning within 24 hours, incident notification within 72 hours, intermediate updates on
+      request and a final report within one month, to the CSIRT or competent authority.
+    controls: [A.5.24, A.5.26, A.5.5]
+    documents: [PROC-IR]

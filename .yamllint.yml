@@ -1,0 +1,22 @@
+# yamllint configuration for the ISMS registers, mappings and workflows. Kept relaxed: the
+# readability of the records matters more than column pedantry, and the Pydantic schema is the
+# real gate.
+extends: default
+
+rules:
+  line-length:
+    max: 120
+    allow-non-breakable-words: true
+  document-start: disable
+  truthy:
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1
+  indentation:
+    spaces: 2
+    indent-sequences: true
+
+ignore: |
+  .venv/
+  dist/
+  node_modules/

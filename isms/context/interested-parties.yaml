@@ -1,0 +1,89 @@
+# Interested parties and their requirements (ISO/IEC 27001:2022 clause 4.2). `addressed_by` points
+# at the documents and Annex A controls that answer each requirement; the scope statement lists
+# them and the validator checks that every reference exists.
+parties:
+  - id: IP-01
+    name: Consumers using the lockers and the app
+    kind: external
+    requirements:
+      - Confidentiality of names, contact details, addresses and parcel history
+      - Availability of deposit and collection, including during backend disruption
+      - Clear, timely communication if their data or parcels are affected by an incident
+    addressed_by: [POL-CLS, POL-LEG, POL-BC, POL-IR, A.5.34]
+
+  - id: IP-02
+    name: Carrier partners
+    kind: external
+    requirements:
+      - Contractual security clauses, annual attestation and a right to audit
+      - Integrity and availability of the label, tracking and handover APIs
+      - Incident notification within contractually agreed deadlines
+    addressed_by: [POL-SUP, POL-NET, POL-IR, A.5.20, A.8.21]
+
+  - id: IP-03
+    name: Retail and municipal site hosts
+    kind: external
+    requirements:
+      - Safe, tamper-resistant locker installations on their premises
+      - Agreed rules for site access, maintenance windows and incident contact
+    addressed_by: [POL-PHY, A.7.1, A.7.4]
+
+  - id: IP-04
+    name: NIS2 competent authorities and CSIRTs (CERT.at and the DE/CZ counterparts)
+    kind: external
+    requirements:
+      - Registration of the entities and up-to-date contact details
+      - Risk-management measures per Art. 21 and management-body accountability per Art. 20
+      - Incident reporting within 24 hours, 72 hours and one month per Art. 23
+    addressed_by: [POL-ISMS, PROC-IR, POL-LEG, A.5.5]
+
+  - id: IP-05
+    name: Data protection authorities (Austrian DSB and the DE/CZ counterparts)
+    kind: external
+    requirements:
+      - Lawful, secure processing of personal data with records of processing
+      - Personal-data breach notification within 72 hours where required
+      - An independent and adequately resourced Data Protection Officer
+    addressed_by: [POL-LEG, PROC-IR, POL-CLS, A.5.34]
+
+  - id: IP-06
+    name: Shareholders and the management body
+    kind: internal
+    requirements:
+      - Information security risk kept within the approved appetite
+      - Protection of the management body from NIS2 liability through demonstrable governance
+      - A maintained ISO/IEC 27001 certificate that carriers and tenders ask for
+    addressed_by: [POL-ISMS, PROC-RISK, PROC-MR, A.5.4]
+
+  - id: IP-07
+    name: Employees, field technicians and contractors
+    kind: internal
+    requirements:
+      - Clear, proportionate rules for using systems, data and devices
+      - Training that fits their role, including locker-tampering guidance for field staff
+      - A fair disciplinary process and a no-blame channel to report events
+    addressed_by: [POL-HR, POL-AUP, POL-REM, A.6.3, A.6.8]
+
+  - id: IP-08
+    name: Cloud and technology suppliers
+    kind: external
+    requirements:
+      - A clear shared-responsibility split and named security contacts
+      - Security requirements communicated in agreements rather than assumed
+    addressed_by: [POL-SUP, A.5.20, A.5.23]
+
+  - id: IP-09
+    name: Certification body and auditors
+    kind: external
+    requirements:
+      - A controlled, versioned document set and a current Statement of Applicability
+      - Traceable evidence that controls operate, and an internal audit programme
+    addressed_by: [PROC-DOC, PROC-AUDIT, A.5.35, A.5.37]
+
+  - id: IP-10
+    name: Cyber insurer
+    kind: external
+    requirements:
+      - Baseline controls as policy conditions, notably MFA on remote and privileged access and tested backups
+      - Notification of incidents that may give rise to a claim
+    addressed_by: [POL-ACC, STD-AUTH, POL-BC, PROC-IR, A.8.5, A.8.13]

@@ -1,0 +1,51 @@
+# Pre-commit uses the SAME uv.lock-pinned tool versions as CI and the Makefile, so a local
+# `git commit` and a CI run can never disagree about ruff/black/mypy/yamllint behaviour. The
+# `isms validate` hook makes a broken document or a stale CHANGELOG impossible to commit.
+minimum_pre_commit_version: "3.8.0"
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff (lint + import sort)
+        entry: uv run ruff check --fix
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: black
+        name: black (format)
+        entry: uv run black
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+      - id: mypy
+        name: mypy (strict types)
+        entry: uv run mypy
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: yamllint
+        name: yamllint (registers, mappings, workflows)
+        entry: uv run yamllint -s
+        language: system
+        types: [yaml]
+      - id: isms-validate
+        name: isms validate (front matter, cross-references, CHANGELOGs)
+        entry: uv run isms validate
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -1,0 +1,54 @@
+name: Release
+
+# A tag `v*` publishes the controlled document set: every approved document, the Statement of
+# Applicability, the scope statement and the registers as PAdES-signed PDFs, plus the SHA-256
+# manifest, the public trust anchor and a build-provenance attestation.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  release:
+    name: Build, sign and publish
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1787184000"
+      ISMS_SIGNING_P12: ${{ secrets.ISMS_SIGNING_P12 }}
+      ISMS_SIGNING_PASSPHRASE: ${{ secrets.ISMS_SIGNING_PASSPHRASE }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+          python-version: "3.12"
+      - name: Native libraries for WeasyPrint
+        run: >-
+          sudo apt-get update -q &&
+          sudo apt-get install -y -q libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0 fonts-dejavu-core
+      - run: uv sync --dev --extra pdf
+      - name: Build the signed document set
+        run: uv run isms build --out dist
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            dist/pdf/*.pdf
+            dist/SHA256SUMS
+      - name: Publish the GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            dist/pdf/*.pdf
+            dist/SHA256SUMS
+            dist/signing-trust-anchor.pem
+          body: |
+            Controlled ISMS document set ${{ github.ref_name }} — every approved policy, standard and
+            procedure, the Statement of Applicability (group and per entity), the ISMS scope statement,
+            the document and risk registers and the coverage reports, rendered from the repository
+            sources and signed (PAdES). Verify with `isms verify --out <download dir>` or by importing
+            `signing-trust-anchor.pem` into your PDF reader. `SHA256SUMS` lists every file.

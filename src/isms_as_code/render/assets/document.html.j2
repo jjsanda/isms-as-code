@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ doc_id }} — {{ title }}</title>
+  <meta name="author" content="{{ organisation }} — ISMS">
+  <meta name="description" content="{{ kind_label }} {{ doc_id }} version {{ version }} ({{ status }})">
+  <meta name="keywords" content="ISMS, ISO/IEC 27001:2022, {{ doc_id }}">
+  <meta name="generator" content="isms-as-code">
+  {% if created %}<meta name="dcterms.created" content="{{ created }}">{% endif %}
+  {% if modified %}<meta name="dcterms.modified" content="{{ modified }}">{% endif %}
+  <style>{{ css | safe }}</style>
+</head>
+<body class="{{ 'artefact' if kind_label == 'Generated artefact' else 'document' }}">
+{% if watermark %}<div class="watermark">{{ watermark }}</div>{% endif %}
+<section class="cover">
+  <div class="org">{{ organisation }} · Information Security Management System</div>
+  <div class="kind">{{ kind_label }}</div>
+  <h1 class="title"><span class="doc-id">{{ doc_id }}</span> — <span class="doc-title">{{ title }}</span></h1>
+  <div class="subtitle">Version <span class="doc-version">{{ version }}</span> · <span class="doc-status">{{ status }}</span> · classification <span class="doc-class">{{ classification }}</span></div>
+  <table class="meta">
+    {% for label, value in metadata %}
+    <tr><th>{{ label }}</th><td>{{ value }}</td></tr>
+    {% endfor %}
+  </table>
+  <div class="signature-note">
+    <strong>Digital signature.</strong> When this PDF is produced by the release pipeline it carries a PAdES
+    signature of the ISMS document-control key, shown at the bottom of this page; verify it with
+    <code>isms verify</code> or any PDF reader. An unsigned copy is not a controlled document.
+  </div>
+</section>
+
+<section class="body">
+{{ body_html | safe }}
+</section>
+
+{% if revisions %}
+<section class="revision">
+  <h2>Revision history</h2>
+  <table>
+    <thead><tr><th>Version</th><th>Approved</th><th>Changes</th></tr></thead>
+    <tbody>
+    {% for entry in revisions %}
+      <tr><td>{{ entry.version }}</td><td>{{ entry.date }}</td><td>{{ entry.summary }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+<section class="approval">
+  <h2>Approval and control</h2>
+  <p>{{ approval_text }}</p>
+  <p class="artefact-note">Source digest sha256:{{ digest }} · rendered by isms-as-code from the repository sources.</p>
+</section>
+</body>
+</html>

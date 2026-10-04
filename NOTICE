@@ -1,0 +1,19 @@
+isms-as-code
+Copyright 2026 Josef Šanda
+
+The tooling in this repository (src/, tests/, scripts/, the Makefile and the GitHub workflows)
+is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The ISMS documents under isms/ and the outputs derived from them under generated/ and
+docs/samples/ are licensed under the Creative Commons Attribution 4.0 International licence
+(see LICENSE-docs). You may adapt them for your own organisation with attribution.
+
+This is a portfolio project. It models a fictional company group -- "PaketPort Systems GmbH"
+and its subsidiaries -- and contains no confidential, proprietary, or personal data from any
+real organization. All names, roles, sites, policies, risks, metrics and evidence references
+are illustrative.
+
+ISO/IEC 27001:2022 and ISO/IEC 27002:2022 are copyrighted standards published by ISO and IEC.
+This repository reproduces only the identifiers and titles of the Annex A controls as reference
+metadata; every description, objective and implementation text is original. To implement the
+standard you need the published text, available from ISO, IEC or your national standards body.

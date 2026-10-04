@@ -1,0 +1,37 @@
+name: Policy change request
+description: Propose a new controlled document or a change to an existing one (PROC-DOC stage 2 / 4)
+title: "[Change] <document id or 'new'>: <short description>"
+labels: [document-change]
+body:
+  - type: input
+    id: document
+    attributes:
+      label: Document
+      description: Existing id (e.g. POL-ACC) or "new" with the proposed id and type
+      placeholder: POL-ACC
+    validations:
+      required: true
+  - type: textarea
+    id: need
+    attributes:
+      label: What should change and why
+      description: The problem, the proposed rule or clarification, and which statement ids are affected
+    validations:
+      required: true
+  - type: dropdown
+    id: bump
+    attributes:
+      label: Expected version bump
+      options: [MAJOR (new or changed obligations), MINOR (clarification or addition), PATCH (editorial)]
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Affected Annex A controls, risks (R-nnn), entities, suppliers, training or communication needs
+  - type: input
+    id: owner
+    attributes:
+      label: Proposed owner role
+      placeholder: isms-manager

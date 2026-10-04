@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+
+# uv
+# (uv.lock IS committed; the virtualenv is not)
+.venv/
+venv/
+
+# Test / type / lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Build output: rendered + signed PDFs, HTML, manifests. Curated SAMPLES are committed under
+# docs/samples/ instead, so the README works without a build step.
+/dist/
+/.local/
+
+# Signing material. Only PUBLIC certificates (certs/*.pem, docs/samples/*.pem) may be committed;
+# private keys live in CI secrets or a local keystore.
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.pk8
+*.key
+*-key.pem
+*private*.pem
+
+# Local environment: ISMS_SIGNING_P12 / ISMS_SIGNING_PASSPHRASE may be kept here for `isms sign`.
+.env
+.env.*
+!.env.example
+
+# Node (mermaid-cli / markdownlint are fetched on demand via npx; nothing is vendored)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude Code: per-user settings and instructions stay local (a shared .claude/ may be committed)
+.claude/settings.local.json
+CLAUDE.local.md
+
+# NOTE: `generated/` and `.github/CODEOWNERS` are produced by `isms generate` and ARE committed on
+# purpose -- CI checks that they are in sync with the sources, so a stale SoA cannot be merged.

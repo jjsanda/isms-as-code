@@ -1,0 +1,161 @@
+# Legal, statutory, regulatory and contractual requirements (A.5.31). EU instruments are cited by
+# their official numbers; national transposition acts are deliberately referenced generically and
+# carry a `verify_note`, because they differ per entity and change — the register is confirmed at
+# every management review (PROC-MR).
+requirements:
+  - id: LEG-01
+    title: NIS2 Directive — network and information security obligations
+    kind: directive
+    reference: Directive (EU) 2022/2555 (NIS2) and the national transposition acts of AT, DE and CZ
+    jurisdiction: EU / AT / DE / CZ
+    applies_to: [all]
+    summary: >-
+      The Austrian parent is an essential entity in the postal and courier sector; the German
+      subsidiary is expected to qualify as an important entity. The group must register, implement
+      the Art. 21(2) risk-management measures, have the management body approve and oversee them
+      (Art. 20) and report significant incidents within the Art. 23 deadlines.
+    obligations:
+      - Register the entities with the competent authority and keep contact details current
+      - Implement and document the Art. 21(2)(a)–(j) measures proportionate to the risks
+      - Management-body approval of the measures and regular management training
+      - Early warning within 24 hours, notification within 72 hours, final report within one month
+    owner: isms-manager
+    controls: [A.5.1, A.5.5, A.5.24, A.5.31, A.6.3]
+    documents: [POL-ISMS, PROC-IR, POL-LEG, PROC-MR]
+    verify_note: >-
+      Confirm per entity the applicable national act, the competent authority and CSIRT, the
+      registration status and any national additions to the EU deadlines at each management review.
+
+  - id: LEG-02
+    title: General Data Protection Regulation
+    kind: regulation
+    reference: Regulation (EU) 2016/679 (GDPR / DSGVO) and national data-protection acts
+    jurisdiction: EU / AT / DE / CZ
+    applies_to: [all]
+    summary: >-
+      PaketPort processes consumers' names, contact details, addresses and parcel events, and
+      employee data for all entities. Processing must be lawful and secure, documented in records
+      of processing, supported by a Data Protection Officer, and personal-data breaches must be
+      notified to the supervisory authority within 72 hours where required.
+    obligations:
+      - Maintain records of processing activities and data-protection impact assessments where needed
+      - Apply security of processing appropriate to the risk (Art. 32)
+      - Notify personal-data breaches within 72 hours and inform data subjects where required
+      - Honour data-subject rights, retention limits and secure deletion
+    owner: dpo
+    controls: [A.5.33, A.5.34, A.8.10, A.8.11]
+    documents: [POL-LEG, POL-CLS, PROC-IR]
+
+  - id: LEG-03
+    title: Cyber Resilience Act — product security for lockers and firmware
+    kind: regulation
+    reference: Regulation (EU) 2024/2847 (Cyber Resilience Act)
+    jurisdiction: EU
+    applies_to: [ENT-AT, ENT-CZ]
+    summary: >-
+      Lockers with their controllers and firmware are products with digital elements. The
+      manufacturer must design and maintain them securely, handle vulnerabilities throughout the
+      support period, provide security updates and report actively exploited vulnerabilities and
+      severe incidents to ENISA and the national CSIRT.
+    obligations:
+      - Secure-by-design development and documented risk assessment for the product line
+      - Coordinated vulnerability handling, SBOM maintenance and security updates for the support period
+      - Reporting of actively exploited vulnerabilities and severe incidents within the phased deadlines
+    owner: software-engineering-lead
+    controls: [A.8.8, A.8.25, A.8.28, A.8.30]
+    documents: [POL-SDLC, POL-VULN]
+    verify_note: >-
+      Obligations apply in phases; confirm which obligations apply to which locker generation and
+      from when, and the conformity-assessment route for the product class.
+
+  - id: LEG-04
+    title: ISO/IEC 27001:2022 — certification requirements
+    kind: standard
+    reference: ISO/IEC 27001:2022 Information security management systems — Requirements
+    jurisdiction: International
+    applies_to: [all]
+    summary: >-
+      The group holds and maintains certification to ISO/IEC 27001:2022. Keeping the certificate
+      requires an operating ISMS with a current scope and Statement of Applicability, internal
+      audits, management reviews, corrective actions and annual surveillance audits.
+    obligations:
+      - Maintain the ISMS documentation, the scope statement and the Statement of Applicability
+      - Run the internal audit programme and the management review at planned intervals
+      - Close nonconformities through corrective actions and support surveillance audits
+    owner: isms-manager
+    controls: [A.5.35, A.5.36, A.5.37]
+    documents: [POL-ISMS, PROC-DOC, PROC-AUDIT, PROC-MR, PROC-CAPA]
+
+  - id: LEG-05
+    title: Carrier framework agreements — information security annex
+    kind: contract
+    reference: Carrier master services agreements, annex "Information Security"
+    jurisdiction: Contractual (AT, DE)
+    applies_to: [ENT-AT, ENT-DE]
+    summary: >-
+      Carriers require secured and available APIs, incident notification within 24 hours of
+      confirmation, an annual security attestation or certificate, and a right to audit the
+      handover service.
+    obligations:
+      - Authenticated, encrypted APIs with availability commitments
+      - Incident notification to the carrier within 24 hours of confirming impact
+      - Annual attestation and support for contractual audits
+    owner: head-of-procurement
+    controls: [A.5.20, A.5.22, A.8.21]
+    documents: [POL-SUP, POL-IR, POL-NET]
+
+  - id: LEG-06
+    title: Labour and privacy law limits on screening and employee monitoring
+    kind: law
+    reference: National labour, works-constitution and data-protection law of AT, DE and CZ
+    jurisdiction: AT / DE / CZ
+    applies_to: [all]
+    summary: >-
+      Pre-employment screening and the monitoring of staff activity are limited by national labour
+      and privacy law. Checks must be proportionate to the role, and monitoring measures in Germany
+      require works-council involvement; employees must be informed transparently.
+    obligations:
+      - Screening proportionate to the role and permitted by local law
+      - Works-council agreement for monitoring measures at the German entity
+      - Transparent information to staff about logging and monitoring
+    owner: hr-manager
+    controls: [A.6.1, A.8.15, A.8.16]
+    documents: [POL-HR, POL-LOG]
+    verify_note: >-
+      Confirm per entity with local counsel before introducing new screening or monitoring measures.
+
+  - id: LEG-07
+    title: Cloud service agreements and the shared-responsibility model
+    kind: contract
+    reference: Cloud provider master agreement, data-processing agreement and shared-responsibility matrix
+    jurisdiction: Contractual
+    applies_to: [all]
+    summary: >-
+      The provider secures the physical infrastructure and the hypervisor; PaketPort is responsible
+      for identities, keys, configuration, data and workloads. The agreement governs data location
+      in the EU, sub-processors and the use of the provider's assurance reports.
+    obligations:
+      - Configure and operate services securely within PaketPort's share of responsibility
+      - Keep data in the contracted EU regions and review sub-processor changes
+      - Review the provider's assurance reports at least annually
+    owner: head-of-platform
+    controls: [A.5.23, A.8.9]
+    documents: [POL-SUP, POL-CRYP]
+
+  - id: LEG-08
+    title: Cyber insurance policy conditions
+    kind: contract
+    reference: Group cyber insurance policy — security warranties and notification clause
+    jurisdiction: Contractual
+    applies_to: [all]
+    summary: >-
+      Cover is conditional on multi-factor authentication for remote and privileged access,
+      tested and isolated backups, endpoint protection and prompt notification of incidents that
+      may give rise to a claim.
+    obligations:
+      - MFA on all remote and privileged access
+      - Backups that are tested and protected from the production environment
+      - Notification of potential claims within the policy deadline
+    owner: managing-director
+    controls: [A.8.5, A.8.13, A.8.7]
+    documents: [POL-ACC, STD-AUTH, POL-BC, PROC-IR]
